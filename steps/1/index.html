@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>index.html</title>
+</head>
+<body>
+  <main class="step">
+    <h1>Making a website</h1>
+    <p>Browsers are extremely capable nowadays. With agents writing most of our code, it's worth looking behind the curtain at how a browser renders a website, from a single index.html file to a fully fledged site.</p>
+    <p>Right now this is just index.html with no CSS, so the browser's defaults make it hard to read: the font, the text size and the line length.</p>
+    <p>Let's fix that! But first, open Code changes: it lists exactly which lines change from step to step.</p>
+    <label>
+      <input type="checkbox" onchange="document.getElementById('next').disabled = !this.checked">
+      Open Code changes
+    </label>
+    <hr />
+    <h2>What's next</h2>
+    <p>The fix is a few lines of CSS, written right into index.html.</p>
+    Step 2: Adding styles
+    <button id="next" disabled onclick="nextStep()">Next</button>
+  </main>
+</body>
+</html>

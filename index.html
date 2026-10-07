@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>index.html</title>
+  <!-- This page is served at every step's address, so it names its one manifest, as Vibe's SPA shell does -->
+  <script>window.__MANIFEST__ = '/vibe-hyperspeed/index.html.manifest.js'</script>
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    import { setupSpa, resolve, navigate } from '/node_modules/@ape-egg/vibe/spa.js'
+    import codie from '/node_modules/@ape-egg/codie/codie.js'
+
+    const steps = await (await fetch('/steps.json')).json()
+
+    // A step's CSS reaches only its own step, even mid-sweep with two steps on the page: rules on the page root
+    // (html) stay on the page, the rest is scoped to the step's <component>, the parent of its <style>s
+    const onPage = rule => rule instanceof CSSStyleRule && document.documentElement.matches(rule.selectorText)
+    const scoped = css => {
+      const sheet = new CSSStyleSheet()
+      sheet.replaceSync(css)
+      const rules = [...sheet.cssRules]
+      const text = rules => rules.map(rule => rule.cssText).join('\n')
+      return `${text(rules.filter(onPage))}\n@scope {\n${text(rules.filter(rule => !onPage(rule)))}\n}`
+    }
+
+    // The step as it mounts: its own files (or their code-mode drafts), each stylesheet inlined and scoped;
+    // a code-mode <link> to a file the step doesn't have inlines nothing, as its request would 404
+    const mounted = ({ src, files }, drafts = {}) => {
+      const text = path => drafts[path] ?? files.find(file => file.path === path)?.after ?? ''
+      const doc = new DOMParser().parseFromString(text('index.html'), 'text/html')
+      const dir = src.replace('index.html', '')
+      doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => link.replaceWith(Object.assign(doc.createElement('style'), { textContent: text(link.getAttribute('href').slice(dir.length)) })))
+      doc.querySelectorAll('style').forEach(style => style.textContent = scoped(style.textContent))
+      return doc
+    }
+
+    const routes = steps.map(step => ({ route: step.route, src: URL.createObjectURL(new Blob([mounted(step).documentElement.outerHTML], { type: 'text/html' })) }))
+
+    const at = path => steps.findIndex(step => step.route === path)
+
+    // Ticking step 1's box reveals the diff pane, which stays from step 2 on;
+    // ticking Steady scrollbar's box reveals the file tree (and code mode), which stays from step 4 on
+    const panes = (path, ticked) => ({
+      diffs: at(path) > 0 || ticked ? 'diffs' : '',
+      files: at(path) > at('/3') || (path === '/3' && ticked) ? 'files' : '',
+    })
+
+    window.$ = vibe({ page: resolve(location, routes) ?? {}, steps, navigate, panes: panes(location.pathname, false), ticked: false, open: 'index.html', mode: '', drafts: {}, sweep: { position: 1 } })
+    // The sweep starts in the same update as the page, so the outgoing step keeps its rendered row
+    setupSpa({
+      routes,
+      onNavigate: ({ path, route, params, src, name }) => {
+        $.sweep = {
+          from: $.page.src,
+          direction: at(path) > at($.page.path) ? 'forward' : 'back',
+          position: 1,
+        }
+        $.page = { path, route, params, src, name }
+      },
+    })
+
+    // Each step's Next calls nextStep(); it lives here, outside the step files, and moves on through the router
+    window.nextStep = () => navigate(steps[at($.page.path) + 1].route)
+
+    // Each changed file's diff is a codie in diff mode, redrawn when the step's file or its code-mode draft changes
+    const diffs = new WeakMap()
+    const redraw = ({ page, drafts }) => document.querySelectorAll('diff-list codie').forEach(el => {
+      const file = steps[at(page.path)].files.find(file => file.path === el.dataset.path)
+      const code = drafts[file.path] ?? file.after
+      if (!diffs.has(el)) {
+        el.toggleAttribute(`highlight-${file.path.split('.').pop()}`)
+        diffs.set(el, codie({ el, diff: true, numberedRows: true, before: file.before }))
+      }
+      if (diffs.get(el).code !== code) diffs.get(el).code = code
+    })
+
+    let editor
+
+    $.on('afterUpdate', ({ page, mode, ticked, open }, prev) => {
+      if (ticked !== prev.ticked) $.panes = panes(page.path, ticked)
+      // index.html shows the rendered step; any other file only opens in code mode
+      if (open !== prev.open) $.mode = open === 'index.html' ? '' : 'code'
+      // Code mode edits the open file itself: index.html re-renders the content, a CSS file restyles it
+      if (mode && (!prev.mode || open !== prev.open)) {
+        const content = document.querySelector('stage > component:last-of-type')
+        if (!prev.mode) editor = codie(document.querySelector('stage > codie'))
+        Object.assign(editor, {
+          code: $.drafts[open] ?? steps[at(page.path)].files.find(file => file.path === open).after,
+          editable: true,
+          numberedRows: true,
+          onEdit: ({ raw }) => {
+            $.drafts = { ...$.drafts, [open]: raw }
+            const doc = mounted(steps[at(page.path)], $.drafts)
+            if (open === 'index.html') content.innerHTML = doc.documentElement.innerHTML
+            else content.querySelectorAll('style').forEach((style, index) => style.textContent = doc.querySelectorAll('style')[index].textContent)
+          },
+        })
+      }
+      if (page.path === prev.page.path) return
+      $.ticked = false
+      $.panes = panes(page.path, false)
+      $.open = 'index.html'
+      $.mode = ''
+      $.drafts = {}
+    })
+
+    // Pane changes animate only once the page is up, so a direct load shows them in place;
+    // the diffs draw from then on too, settling being their first update
+    $.on('ready', () => {
+      $.on('afterUpdate', redraw)
+      $.settled = 'settled'
+    })
+  </script>
+</head>
+<body>
+  <component src="/components/Layout.html"></component>
+</body>
+</html>

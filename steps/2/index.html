@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>index.html</title>
+  <style>
+    .step {
+      font: 1.25rem/1.6 system-ui, sans-serif;
+      background: oklch(0.984 0.006 85);
+      padding-inline: max(2rem, 50% - 20rem);
+    }
+
+    .step button {
+      display: inline-block;
+      border: 0;
+      font: inherit;
+      margin-right: 0.5em;
+      padding: 0.25em 1em;
+      border-radius: 0.375em;
+      color: #eee;
+      background: #222;
+    }
+
+    .step button:disabled {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <main class="step">
+    <h1>Same page, much better</h1>
+    <p>This page renders just like the previous step, only the content differs. Our first CSS, written right into index.html, sets a readable font, text size and line length: a tiny bit of styling improves readability.</p>
+    <h2>Dive deeper</h2>
+    <ul>
+      <li>
+        <a href="https://baymard.com/research-articles/line-length-readability" target="_blank">Readability: The Optimal Line Length</a>
+        (Baymard Institute)
+      </li>
+    </ul>
+    <hr />
+    <h2>What's next</h2>
+    <p>
+      When this page opened, a scrollbar showed up on the right for a moment and
+      <strong>pushed everything a little to the side</strong>.
+      Did you notice? Probably not. It was a tiny change, but
+      <a href="https://web.dev/articles/cls" target="_blank">layout shifts</a>
+      like this are extremely annoying and unprofessional.
+    </p>
+    Step 3: Steady scrollbar
+    <button id="next" onclick="nextStep()">Next</button>
+  </main>
+</body>
+</html>

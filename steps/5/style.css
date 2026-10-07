@@ -1,0 +1,7 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+.step {
+  padding-inline: max(2rem, 50% - 20rem);
+}

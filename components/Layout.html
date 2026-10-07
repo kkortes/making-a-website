@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/stylecheat.css">
+<link rel="stylesheet" href="/layout.css">
+<link rel="stylesheet" href="/components/code-diff.css">
+<link rel="stylesheet" href="/node_modules/@ape-egg/codie/codie.css">
+<nav>
+  <!-- each steps as step -->
+  <a href="@[step.route]" aria-current="@[page.path === step.route ? 'page' : false]">@[step.title]</a>
+  <!-- /each -->
+</nav>
+<workspace @[panes.diffs] @[panes.files] @[mode] @[settled]>
+  <file-tree stylecheat dark>
+    <pane-title>File tree</pane-title>
+    <pane-body>
+      <!-- each steps.find(step => step.route === page.path).files.filter(file => file.state !== 'removed') as file (page.path + file.path) -->
+      <file @[file.state] aria-current="@[file.path === open ? 'page' : false]" onclick="$.open = '@[file.path]'">@[file.path] <badge text-foreground>@[file.state]</badge></file>
+      <!-- /each -->
+    </pane-body>
+  </file-tree>
+  <stage @[sweep.direction] style="--divider: @[sweep.position]" onanimationend="$.sweep = { position: 1 }" onchange="event.target.type === 'checkbox' && ($.ticked = event.target.checked)">
+    <!-- if open === 'index.html' -->
+    <button stylecheat dark onclick="$.mode = $.mode ? '' : 'code'" onmouseenter="this.firstElementChild.toggleAttribute('open', true)" onmouseleave="this.firstElementChild.toggleAttribute('open', false)" aria-label="Code mode" aria-pressed="@[!!mode]">
+      <tooltip direction="up" position="absolute" b="calc(100% + 3 * var(--unit))">@[mode ? 'Normal mode' : 'Code mode']</tooltip>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
+    </button>
+    <!-- /if -->
+    <!-- if mode -->
+    <codie dark></codie>
+    <!-- /if -->
+    <!-- each [sweep.from, page.src].filter(Boolean) as src (src) -->
+    <component src="@[src]"></component>
+    <!-- /each -->
+  </stage>
+  <diff-list stylecheat dark>
+    <pane-title>Code changes</pane-title>
+    <pane-body>
+      <!-- each steps.find(step => step.route === page.path).files.filter(file => file.state) as file (page.path + file.path) -->
+      <code-diff>
+        <codie dark data-path="@[file.path]"></codie>
+        <sticky auto-shadow>
+          <code>@[file.path]</code>
+          <tally><added></added><removed></removed></tally>
+        </sticky>
+      </code-diff>
+      <!-- /each -->
+    </pane-body>
+  </diff-list>
+</workspace>

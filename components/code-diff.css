@@ -1,0 +1,51 @@
+code-diff {
+  display: flex;
+  flex-direction: column;
+  counter-reset: added removed;
+  font: 0.75rem/1.6 system-ui, sans-serif;
+}
+
+code-diff codie[dark] {
+  --codie-bg: transparent;
+}
+
+code-diff sticky {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #222;
+}
+
+code-diff code {
+  min-width: 0;
+  overflow: hidden;
+  direction: rtl;
+  text-overflow: ellipsis;
+}
+
+code-diff tally {
+  display: flex;
+  gap: 2px;
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+code-diff .codie-diff-added {
+  counter-increment: added;
+}
+
+code-diff .codie-diff-removed {
+  counter-increment: removed;
+}
+
+code-diff added::before {
+  content: '+' counter(added);
+  color: var(--green);
+}
+
+code-diff removed::before {
+  content: '−' counter(removed);
+  color: var(--red);
+}

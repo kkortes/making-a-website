@@ -1,0 +1,24 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+.step {
+  font: 1.25rem/1.6 system-ui, sans-serif;
+  background: oklch(0.984 0.006 85);
+  padding-inline: max(2rem, 50% - 20rem);
+}
+
+.step button {
+  display: inline-block;
+  border: 0;
+  font: inherit;
+  margin-right: 0.5em;
+  padding: 0.25em 1em;
+  border-radius: 0.375em;
+  color: #eee;
+  background: #222;
+}
+
+.step button:disabled {
+  opacity: 0.5;
+}
