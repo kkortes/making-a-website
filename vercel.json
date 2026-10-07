@@ -3,5 +3,5 @@
   "installCommand": "bun install",
   "buildCommand": "bun run build",
   "outputDirectory": "compiled",
-  "rewrites": [{ "source": "/:step(\\d+)", "destination": "/index.html" }]
+  "routes": [{ "src": "/\\d+/?", "dest": "/index.html" }]
 }
