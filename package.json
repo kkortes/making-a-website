@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@ape-egg/codie": "^0.1.13",
-    "@ape-egg/vibe": "^4.3.14"
+    "@ape-egg/vibe": "^4.3.15"
   },
   "devDependencies": {
-    "@ape-egg/vibe-compiler": "^4.3.13",
+    "@ape-egg/vibe-compiler": "^4.3.15",
     "@ape-egg/vite-plugin-vibe": "^0.5.0",
     "vite": "^8.3.3"
   },

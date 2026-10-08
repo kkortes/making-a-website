@@ -6,10 +6,10 @@
       "name": "making-a-website",
       "dependencies": {
         "@ape-egg/codie": "^0.1.13",
-        "@ape-egg/vibe": "^4.3.14",
+        "@ape-egg/vibe": "^4.3.15",
       },
       "devDependencies": {
-        "@ape-egg/vibe-compiler": "^4.3.13",
+        "@ape-egg/vibe-compiler": "^4.3.15",
         "@ape-egg/vite-plugin-vibe": "^0.5.0",
         "vite": "^8.3.3",
       },
@@ -18,9 +18,9 @@
   "packages": {
     "@ape-egg/codie": ["@ape-egg/codie@0.1.13", "", {}, "sha512-Kys+vznRcK4GrgJmqccIH9QJst4B0VN1IcK6xgllkWEqrjry18Ph9DJc8Agrqsuv3zb3ea6SnQGX4xdJBjCuMQ=="],
 
-    "@ape-egg/vibe": ["@ape-egg/vibe@4.3.14", "", {}, "sha512-gUZgDGHp+EVVS0i/e6lXBQ0kRjTF5kF0Wea2B2Wjf0/UtfE2lPkuzbdTjSb9DG72VToQyIYEcfFZv9lLkknKaw=="],
+    "@ape-egg/vibe": ["@ape-egg/vibe@4.3.15", "", {}, "sha512-orhtciOpgb4+mbhBAEIGrkmNsdlfjeBsET0livCPuUXXqZceyAJWUkbBgSHIFt6+g84uD1PbnbaTy4xbVB20Dw=="],
 
-    "@ape-egg/vibe-compiler": ["@ape-egg/vibe-compiler@4.3.13", "", { "bin": { "vibe": "bin/vibe-compile.js" } }, "sha512-lJsoQKGXxYzJBMJc1ySzLmwwEBlNL793iaX2Ym1WlxIOSjCs0xBsUeq73tKyELeMJOeF7LzrBVl4aIdaajuLPw=="],
+    "@ape-egg/vibe-compiler": ["@ape-egg/vibe-compiler@4.3.15", "", { "bin": { "vibe": "bin/vibe-compile.js" } }, "sha512-bm6UAnAGeT3z1jUO2fGDP+yDNqUvvkY1zBU3QDvdZDqABlbwIss9YksBxHAWVGRkKhCWEZl68mNINpR8zFkQtg=="],
 
     "@ape-egg/vite-plugin-vibe": ["@ape-egg/vite-plugin-vibe@0.5.0", "", { "dependencies": { "acorn": "^8.0.0" }, "peerDependencies": { "@ape-egg/vibe": ">=4.3.0", "vite": ">=5.0.0" } }, "sha512-bYXDGoXPxJ1SNKb6YtIAXbxXT5XdF7ndHEodOLcq83qwFY+ms+G0PtuiboHPIpwH65biKJmJ50Fg0i6gngfJHg=="],
 
