@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 code-diff {
   display: flex;
   flex-direction: column;

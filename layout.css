@@ -4,14 +4,20 @@
   initial-value: 1;
 }
 
+html {
+  overflow-y: scroll;
+  scrollbar-color: oklch(0.4 0.02 264) #15181d;
+}
+
 body {
   margin: 0;
+  scrollbar-color: auto;
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem;
   height: var(--bar);
   padding-inline: 2rem;
   font: 1.125rem/1.6 system-ui, sans-serif;
@@ -26,7 +32,7 @@ nav {
 }
 
 workspace {
-  --files: 14rem;
+  --files: 19rem;
   --diffs: 32rem;
   position: relative;
   display: grid;
@@ -151,16 +157,20 @@ file {
   cursor: pointer;
 }
 
-file[aria-current="page"] {
+folder,
+files-placeholder {
+  font: 0.875rem/1.6 ui-monospace, monospace;
+  padding: 0.5rem 0.75rem;
+}
+
+folder ~ file,
+files-placeholder {
+  margin-left: 1rem;
+}
+
+file[aria-current="page"],
+file:hover {
   background: #333;
-}
-
-file[added] badge {
-  background: oklch(from var(--green) l c h / 0.2);
-}
-
-file[modified] badge {
-  background: oklch(from var(--blue) l c h / 0.2);
 }
 
 diff-list {
@@ -169,7 +179,7 @@ diff-list {
   inset: 0;
 }
 
-nav a {
+nav :is(a, icon) {
   color: #999;
   text-decoration: none;
 }
@@ -189,13 +199,22 @@ stage > component {
   background: #fff;
 }
 
-stage > component > main {
-  display: flow-root;
-  padding: 0 2rem;
+stage > component > step-body {
+  display: block;
 }
 
-stage .step {
+stage > component > step-body main {
   min-height: calc(100vh - var(--bar));
+  padding-inline: 2rem;
+}
+
+stage > component > step-body sidebar {
+  height: auto;
+  max-height: 100dvh;
+}
+
+stage > component > step-body:not([stylecheat]) main {
+  display: flow-root;
 }
 
 stage[forward] > component:last-of-type,

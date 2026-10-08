@@ -3,5 +3,5 @@
   "installCommand": "bun install",
   "buildCommand": "bun run build",
   "outputDirectory": "compiled",
-  "routes": [{ "src": "/\\d+/?", "dest": "/index.html" }]
+  "routes": [{ "src": "/\\d+/?", "dest": "/index.html" }, { "src": "/\\d+/(?!index\\.html$)[^/]+\\.html", "dest": "/index.html" }, { "src": "/\\d+/[^/.]+", "dest": "/index.html" }]
 }

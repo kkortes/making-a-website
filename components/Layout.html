@@ -3,21 +3,33 @@
 <link rel="stylesheet" href="/components/code-diff.css">
 <link rel="stylesheet" href="/node_modules/@ape-egg/codie/codie.css">
 <nav>
-  <!-- each steps as step -->
-  <a href="@[step.route]" aria-current="@[page.path === step.route ? 'page' : false]">@[step.title]</a>
+  <!-- each steps as step, index -->
+  <!-- if index -->
+  <icon chevron-right></icon>
+  <!-- /if -->
+  <a href="@[step.route]" aria-current="@[page.step === index ? 'page' : false]">@[step.title]</a>
   <!-- /each -->
 </nav>
 <workspace @[panes.diffs] @[panes.files] @[mode] @[settled]>
   <file-tree stylecheat dark>
-    <pane-title>File tree</pane-title>
+    <pane-title text-muted>File tree</pane-title>
     <pane-body>
-      <!-- each steps.find(step => step.route === page.path).files.filter(file => file.state !== 'removed') as file (page.path + file.path) -->
-      <file @[file.state] aria-current="@[file.path === open ? 'page' : false]" onclick="$.open = '@[file.path]'">@[file.path] <badge text-foreground>@[file.state]</badge></file>
+      <!-- each [...new Set(steps[page.step].files.filter(file => file.state !== 'removed').map(file => file.folder))] as folder (page.path + folder) -->
+      <!-- if folder -->
+      <folder text-muted>@[folder]</folder>
+      <!-- /if -->
+      <!-- each steps[page.step].files.filter(file => file.state !== 'removed' && file.folder === folder) as file (page.path + file.path) -->
+      <file aria-current="@[file.path === open ? 'page' : false]" onclick="$.open = '@[file.path]'">@[file.path.slice(folder.length)]<!-- if file.state --> <badge @[`bg-${colours[file.state]}`] @[`text-${colours[file.state]}`]>@[file.state]</badge><!-- /if --></file>
       <!-- /each -->
+      <!-- /each -->
+      <!-- if steps[page.step].installed -->
+      <folder text-muted>node_modules/</folder>
+      <files-placeholder text-muted>...files...</files-placeholder>
+      <!-- /if -->
     </pane-body>
   </file-tree>
   <stage @[sweep.direction] style="--divider: @[sweep.position]" onanimationend="$.sweep = { position: 1 }" onchange="event.target.type === 'checkbox' && ($.ticked = event.target.checked)">
-    <!-- if open === 'index.html' -->
+    <!-- if open === page.file -->
     <button stylecheat dark onclick="$.mode = $.mode ? '' : 'code'" onmouseenter="this.firstElementChild.toggleAttribute('open', true)" onmouseleave="this.firstElementChild.toggleAttribute('open', false)" aria-label="Code mode" aria-pressed="@[!!mode]">
       <tooltip direction="up" position="absolute" b="calc(100% + 3 * var(--unit))">@[mode ? 'Normal mode' : 'Code mode']</tooltip>
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
@@ -31,11 +43,15 @@
     <!-- /each -->
   </stage>
   <diff-list stylecheat dark>
-    <pane-title>Code changes</pane-title>
+    <pane-title text-muted>Code changes</pane-title>
     <pane-body>
-      <!-- each steps.find(step => step.route === page.path).files.filter(file => file.state) as file (page.path + file.path) -->
+      <!-- each steps[page.step].files.filter(file => file.state) as file (page.path + file.path) -->
       <code-diff>
+        <!-- if file.lines.added + file.lines.removed <= 500 || shown.includes(file.path) -->
         <codie dark data-path="@[file.path]"></codie>
+        <!-- else -->
+        <button tertiary w-full onclick="$.shown = [...$.shown, '@[file.path]']" style="counter-set: added @[file.lines.added] removed @[file.lines.removed]">Show changes</button>
+        <!-- /if -->
         <sticky auto-shadow>
           <code>@[file.path]</code>
           <tally><added></added><removed></removed></tally>
