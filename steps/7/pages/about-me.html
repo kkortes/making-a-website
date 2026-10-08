@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/stylecheat.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    vibe()
+  </script>
+</head>
+<body stylecheat>
+  <Layout>
+    <container typography>
+      <crow left g-6>
+        <crow circle w-20 bg-blue text-blue>
+          <strong>KK</strong>
+        </crow>
+        <crow vertical left>
+          <h1>Kim Korte</h1>
+          <badge secondary>Web developer</badge>
+        </crow>
+      </crow>
+      <p>A few words about who I am, where I'm based and what I care about go here.</p>
+      <h2>What I work on</h2>
+      <crow stretch left g-4>
+        <card f-1 g-2>
+          <h3>Vibe</h3>
+          <p>A runtime-first reactive framework for building UI frontends.</p>
+          <a href="https://vibe.korte.kim" target="_blank" primary>vibe.korte.kim</a>
+        </card>
+        <card f-1 g-2>
+          <h3>Stylecheat</h3>
+          <p>A CSS component library that styles plain HTML through attributes and custom elements.</p>
+          <a href="https://stylecheat.korte.kim" target="_blank" primary>stylecheat.korte.kim</a>
+        </card>
+        <card f-1 g-2>
+          <h3>Making a website</h3>
+          <p>This journey, from a bare <code>index.html</code> to a fully fledged website.</p>
+          <a href="/index.html" primary>Back home</a>
+        </card>
+      </crow>
+    </container>
+    <BottomBar></BottomBar>
+  </Layout>
+</body>
+</html>

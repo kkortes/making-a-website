@@ -1,0 +1,15 @@
+<style>
+  sidebar a[active] {
+    background-color: var(--card);
+  }
+</style>
+<sidebar>
+  <sidebar-content>
+    <crow vertical left g-1 w-full>
+      <!-- each pages as link -->
+      <a class="button" href="@[link.href]" tertiary active="@[page.path === link.href]">@[link.title]</a>
+      <!-- /each -->
+    </crow>
+    <Rail></Rail>
+  </sidebar-content>
+</sidebar>

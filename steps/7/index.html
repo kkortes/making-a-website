@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/stylecheat.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    vibe()
+  </script>
+</head>
+<body stylecheat>
+  <Layout>
+    <container typography>
+      <h1>Multi-page Application</h1>
+      <p>So far we've only touched a single <code>index.html</code> file. That works, and a whole site could technically live in it, but no real website is developed in one <code>.html</code> file.</p>
+      <p>Browsers support multi-page sites natively: every <code>.html</code> file you visit is its own page. The <code>&lt;sidebar&gt;</code> links to a second one, <code>pages/about-me.html</code>, next to the <code>index.html</code> in the root.</p>
+      <h2>Dive deeper</h2>
+      <ul>
+        <li>
+          <a href="https://stylecheat.korte.kim/elements/sidebar" target="_blank" primary>Sidebar</a>
+          (Stylecheat)
+        </li>
+      </ul>
+      <hr />
+      <h2>What's next</h2>
+      <p>The site has room to grow now: each new page is one more <code>.html</code> file next to the others.</p>
+    </container>
+    <BottomBar></BottomBar>
+  </Layout>
+</body>
+</html>

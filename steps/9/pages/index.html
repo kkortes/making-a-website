@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/stylecheat.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    import state from '/state.js'
+    vibe(state)
+  </script>
+</head>
+<body stylecheat>
+  <Layout>
+    <container typography>
+      <h1>Reactivity</h1>
+      <p>Until now every repeated thing was written out by hand: each link in the <code>&lt;sidebar&gt;</code>, each card on <code>about-me.html</code>. Now the site's first JavaScript file, <code>state.js</code>, holds them as data, and Vibe renders the markup from it: <code>&lt;!-- each pages as link --&gt;</code> writes one link per page, and <code vibe-dehydrate>@[link.title]</code> shows a value.</p>
+      <p>The state is live, too. An event handler like <code>oninput="$.guest.name = this.value"</code> changes it, and every binding that reads it updates on its own. Try it below.</p>
+      <h2>Guestbook</h2>
+      <card g-4>
+        <input value="@[guest.name]" oninput="$.guest.name = this.value" placeholder="Your name">
+        <crow left g-4>
+          <input type="range" min="1" max="5" value="@[guest.rating]" oninput="$.guest.rating = +this.value">
+          @['★'.repeat(guest.rating)]
+        </crow>
+        <button onclick="$.guestbook.push({ ...$.guest })" disabled="@[!guest.name]" primary>Sign as @[guest.name || '…']</button>
+      </card>
+      <ul>
+        <!-- each guestbook as entry -->
+        <li>
+          <strong>@[entry.name]</strong>
+          @['★'.repeat(entry.rating)]
+        </li>
+        <!-- /each -->
+      </ul>
+      <h2>Dive deeper</h2>
+      <ul>
+        <!-- each reading as link -->
+        <li>
+          <a href="@[link.href]" target="_blank" primary>@[link.title]</a>
+          (@[link.source])
+        </li>
+        <!-- /each -->
+      </ul>
+      <hr />
+      <h2>What's next</h2>
+      <p>This is where the journey ends, with a website that has pages, styles, components and live state. From here a site grows by the same means: more pages, more state, and data fetched from a server instead of written into <code>state.js</code>.</p>
+    </container>
+    <BottomBar></BottomBar>
+  </Layout>
+</body>
+</html>

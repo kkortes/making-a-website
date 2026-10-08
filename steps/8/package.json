@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@ape-egg/vibe": "^4.3.14"
+  },
+  "vibe-compiler": {
+    "spa": true,
+    "componentsAsIs": false
+  }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/stylecheat.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    vibe()
+  </script>
+</head>
+<body stylecheat>
+  <Layout>
+    <container typography>
+      <h1>Single-page Application</h1>
+      <p>In step 7 every click in the <code>&lt;sidebar&gt;</code> loaded a whole new document. Now the browser loads one document, and moving between pages only swaps the page's content inside it.</p>
+      <p>Since the document stays loaded between pages, the site can do things a multi-page site can't: show a loading indicator while the next page is on its way, or keep an mp3 playing while you navigate, where a page load would cut it off.</p>
+      <p>Three things changed: <code>"spa": true</code> in <code>package.json</code> tells Vibe's compiler to build the site as a single-page application, <code>index.html</code> moved into <code>pages/</code> next to <code>about-me.html</code>, since the compiler writes the one document every address serves itself, and the links point to the routes the compiler names after the page files (<code>/</code> and <code>/about-me</code>), which Vibe's router takes over.</p>
+      <p>The site is still built the MPA way: every page is its own full <code>.html</code> file in <code>pages/</code>, with its own <code>&lt;head&gt;</code> and <code>&lt;Layout&gt;</code>, and the compiler makes the single page out of them.</p>
+      <h2>Dive deeper</h2>
+      <ul>
+        <li>
+          <a href="https://developer.mozilla.org/en-US/docs/Glossary/SPA" target="_blank" primary>SPA (Single-page application)</a>
+          (MDN)
+        </li>
+        <li>
+          <a href="https://vibe.korte.kim/navigation/spa.html" target="_blank" primary>SPA / MPA</a>
+          (Vibe)
+        </li>
+      </ul>
+      <hr />
+      <h2>What's next</h2>
+      <p>Every link in the <code>&lt;sidebar&gt;</code> and every card on <code>about-me.html</code> is still written out by hand. Next the site gets its first JavaScript file, <code>state.js</code>, holding them as data for Vibe to render the markup from, along with a few things on the home page that change as you play with them.</p>
+    </container>
+    <BottomBar></BottomBar>
+  </Layout>
+</body>
+</html>

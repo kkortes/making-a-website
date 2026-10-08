@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/stylecheat.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    import state from '/state.js'
+    vibe(state)
+  </script>
+</head>
+<body stylecheat>
+  <Layout>
+    <container typography>
+      <crow left g-6>
+        <crow circle w-20 bg-blue text-blue>
+          <strong>KK</strong>
+        </crow>
+        <crow vertical left>
+          <h1>Kim Korte</h1>
+          <badge secondary>Web developer</badge>
+        </crow>
+      </crow>
+      <p>A few words about who I am, where I'm based and what I care about go here.</p>
+      <h2>What I work on</h2>
+      <crow stretch left g-4>
+        <!-- each projects as project -->
+        <card f-1 g-2>
+          <h3>@[project.title]</h3>
+          <p>@[project.text]</p>
+          <a href="@[project.href]" target="_blank" primary>@[project.label]</a>
+        </card>
+        <!-- /each -->
+      </crow>
+    </container>
+    <BottomBar></BottomBar>
+  </Layout>
+</body>
+</html>
