@@ -1,0 +1,23 @@
+<h1>Compiled</h1>
+<p>The <code>&lt;component&gt;</code>s in <code>index.html</code> became <code>&lt;Layout&gt;</code> and <code>&lt;PageContent&gt;</code>, tags named after their files in <code>components/</code>. Only Vibe's compiler understands them: it puts both into the page ahead of time, so the browser no longer has to fetch them.</p>
+<p><code>package.json</code> holds the compiler's settings under <code>vibe-compiler</code>, where <code>componentsAsIs</code> set to <code>false</code> has it put components into the page rather than leave them for the browser to fetch.</p>
+<h2>Dive deeper</h2>
+<ul>
+  <li>
+    <a href="https://vibe.korte.kim/compiler/introduction.html" target="_blank">Vibe Compiler introduction</a>
+    (Vibe)
+  </li>
+  <li>
+    <a href="https://vibe.korte.kim/compiler/configuration.html" target="_blank">Compiler configuration</a>
+    (Vibe)
+  </li>
+</ul>
+<hr />
+<h2>What's next</h2>
+<p>
+  Styling every element by hand soon gets tedious, which is why many reach for something like
+  <a href="https://tailwindcss.com" target="_blank">Tailwind</a>.
+  Here we'll use Stylecheat.
+</p>
+Step 6: Stylecheat
+<button id="next" onclick="nextStep()">Next</button>

@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>index.html</title>
+  <title>Making a website</title>
   <style>
     .step {
       font: 1.25rem/1.6 system-ui, sans-serif;
-      background: oklch(0.984 0.006 85);
       padding-inline: max(2rem, 50% - 20rem);
     }
 
@@ -25,12 +24,24 @@
     .step button:disabled {
       opacity: 0.5;
     }
+
+    .step code {
+      font: 0.85em ui-monospace, monospace;
+      border: 1px solid oklch(0.55 0.03 60 / 0.2);
+      border-radius: 0.25em;
+      padding: 0.1em 0.35em;
+    }
   </style>
 </head>
 <body>
   <main class="step">
     <h1>Same page, much better</h1>
-    <p>This page renders just like the previous step, only the content differs. Our first CSS, written right into index.html, sets a readable font, text size and line length: a tiny bit of styling improves readability.</p>
+    <p>This page renders just like the previous step, only the content differs. Our first CSS, written right into <code>index.html</code>, sets a readable font, text size and line length: a tiny bit of styling improves readability.</p>
+    <p>The page is about to grow past one file, so open the File tree: it lists every file the page is made of. The black circle that comes with it switches to code mode, which shows the code behind the page.</p>
+    <label>
+      <input type="checkbox" onchange="document.getElementById('next').disabled = !this.checked">
+      Open File tree &amp; enable code mode
+    </label>
     <h2>Dive deeper</h2>
     <ul>
       <li>
@@ -40,15 +51,9 @@
     </ul>
     <hr />
     <h2>What's next</h2>
-    <p>
-      When this page opened, a scrollbar showed up on the right for a moment and
-      <strong>pushed everything a little to the side</strong>.
-      Did you notice? Probably not. It was a tiny change, but
-      <a href="https://web.dev/articles/cls" target="_blank">layout shifts</a>
-      like this are extremely annoying and unprofessional.
-    </p>
-    Step 3: Steady scrollbar
-    <button id="next" onclick="nextStep()">Next</button>
+    <p>All our CSS sits inside index.html, mixed in with the content, and no other page can reuse it. Next it moves into a file of its own.</p>
+    Step 3: Separate CSS file
+    <button id="next" disabled onclick="nextStep()">Next</button>
   </main>
 </body>
 </html>

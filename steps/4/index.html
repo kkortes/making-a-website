@@ -3,26 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>index.html</title>
-  <link rel="stylesheet" href="/4/style.css">
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module">
+    import vibe from '/node_modules/@ape-egg/vibe/index.js'
+    vibe()
+  </script>
 </head>
 <body>
-  <main class="step">
-    <h1>A separate CSS file</h1>
-    <p>The CSS moved out of index.html into style.css, which the page links to. It looks the same, but now the styles live in one file any page can share, and index.html is back to just content.</p>
-    <p>The file viewer on the left lists both files. The black circle in the top right shows the rendered HTML in code mode.</p>
-    <h2>Dive deeper</h2>
-    <ul>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link" target="_blank">&lt;link&gt;: the external resource link element</a>
-        (MDN)
-      </li>
-    </ul>
-    <hr />
-    <h2>What's next</h2>
-    <p>Every browser brings its own default styles, so the same page doesn't look or behave quite the same from one browser to the next. Next the page gets a stylesheet that evens that out.</p>
-    Step 5: Stylecheat
-    <button id="next" onclick="nextStep()">Next</button>
-  </main>
+  <component src="/components/Layout.html">
+    <component src="/components/PageContent.html"></component>
+  </component>
 </body>
 </html>

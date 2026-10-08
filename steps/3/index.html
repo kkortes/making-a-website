@@ -3,55 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>index.html</title>
-  <style>
-    html {
-      scrollbar-gutter: stable;
-    }
-
-    .step {
-      font: 1.25rem/1.6 system-ui, sans-serif;
-      background: oklch(0.984 0.006 85);
-      padding-inline: max(2rem, 50% - 20rem);
-    }
-
-    .step button {
-      display: inline-block;
-      border: 0;
-      font: inherit;
-      margin-right: 0.5em;
-      padding: 0.25em 1em;
-      border-radius: 0.375em;
-      color: #eee;
-      background: #222;
-    }
-
-    .step button:disabled {
-      opacity: 0.5;
-    }
-  </style>
+  <title>Making a website</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <main class="step">
-    <h1>A page that behaves well</h1>
-    <p>The page keeps room for a scrollbar even when there's nothing to scroll, so the content no longer shifts sideways when one appears.</p>
-    <p>The page is about to grow past one file, so open the File tree: it lists every file the page is made of. The black circle that comes with it switches to code mode, which shows the code behind the page.</p>
-    <label>
-      <input type="checkbox" onchange="document.getElementById('next').disabled = !this.checked">
-      Open File tree &amp; enable code mode
-    </label>
+    <h1>A separate CSS file</h1>
+    <p>The CSS moved out of <code>index.html</code> into <code>style.css</code>, which the page links to. It looks the same, but now the styles live in one file any page can share, and <code>index.html</code> is back to just content.</p>
+    <p>The file viewer on the left lists both files. The black circle in the top right shows the rendered HTML in code mode.</p>
     <h2>Dive deeper</h2>
     <ul>
       <li>
-        <a href="https://www.bram.us/2021/07/23/prevent-unwanted-layout-shifts-caused-by-scrollbars-with-the-scrollbar-gutter-css-property/" target="_blank">Prevent unwanted layout shifts caused by scrollbars</a>
-        (Bram.us)
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link" target="_blank"><code>&lt;link&gt;</code>: the external resource link element</a>
+        (MDN)
       </li>
     </ul>
     <hr />
     <h2>What's next</h2>
-    <p>All our CSS sits inside index.html, mixed in with the content, and no other page can reuse it. Next it moves into a file of its own.</p>
-    Step 4: Separate CSS file
-    <button id="next" disabled onclick="nextStep()">Next</button>
+    <p>The content still sits in the page itself, so every new page would have to repeat it. Next Vibe comes in, and the content moves into a layout component of its own.</p>
+    Step 4: Vibe
+    <button id="next" onclick="nextStep()">Next</button>
   </main>
 </body>
 </html>

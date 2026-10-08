@@ -1,0 +1,27 @@
+<h1>Vibe</h1>
+<p>Vibe now runs in the page, and the content moved out of it: <code>index.html</code> nests a <code>&lt;component&gt;</code> for <code>components/PageContent.html</code>, which holds this content, inside one for <code>components/Layout.html</code>, which puts it in the <code>&lt;main&gt;</code> through its <code>&lt;slot&gt;</code>. Components can hold other components, so any page can share the same layout.</p>
+<p>Vibe's reactivity rests on two browser features. A JavaScript <code>Proxy</code> wraps the page's state, so every change to it is noticed and only the parts of the page that read that value update. A <code>MutationObserver</code> watches the page itself, so markup added later is picked up and markup that's removed is cleaned up.</p>
+<h2>Dive deeper</h2>
+<ul>
+  <li>
+    <a href="https://vibe.korte.kim" target="_blank">Vibe documentation</a>
+    (Vibe)
+  </li>
+  <li>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">JavaScript modules</a>
+    (MDN)
+  </li>
+  <li>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver" target="_blank">MutationObserver</a>
+    (MDN)
+  </li>
+  <li>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank">Proxy</a>
+    (MDN)
+  </li>
+</ul>
+<hr />
+<h2>What's next</h2>
+<p>The browser only gets the layout once Vibe has fetched it, after the page has loaded. Next Vibe's compiler puts the layout into the page ahead of time.</p>
+Step 5: Compiled
+<button id="next" onclick="nextStep()">Next</button>
